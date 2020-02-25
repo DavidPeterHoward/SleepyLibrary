@@ -7,6 +7,7 @@ import chalk from 'chalk';
 import { connectDb } from './models';
 import routes from './routes';
 
+const isProduction = process.env.NODE_ENV === 'production';
 const PORT = process.env.PORT || 4000;
 const DB = mongoose.connection;
 const app = express();
@@ -14,11 +15,26 @@ app.listen(PORT);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use(express.static('client/build'));
-app.get('*', (req, res) =>
-  res.sendFile(path.resolve('client/build', 'index.html')),
+// app.use(cors());
+
+app.use(
+  cors({
+    origin:
+      process.env.NODE_ENV === 'production'
+        ? process.env.FRONT_END_URL + ':' + process.env.PORT
+        : 'http://localhost:3000',
+  }),
 );
+
+if (isProduction) {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve('client/build', 'index.html')),
+  );
+} else {
+  app.use(express.static('public'));
+}
+
 app.use('/', routes);
 
 connectDb();
