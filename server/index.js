@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import chalk from 'chalk';
-import path fro "path";
+import path from 'path';
 import { connectDb } from './models';
 import routes from './routes';
 
