@@ -37,8 +37,6 @@ DATABASE RELATIONSHIPS
 
 #
 
-This application was developed to be as modular/reusable as possible while still maintaining flexibility -> accounting possible features in the future.
-
 ```toc
 // Introduction
 // Features
@@ -203,48 +201,3 @@ publisher:
 - name
 - authors
 - books
-
-#
-
-## Relationship Types:
-
-- AUTHOR can have many Books
-- AUTHOR can have many Publishers
-
-#
-
-- BOOKS can have many Authors
-- BOOKS can have one Publisher
-
-#
-
-- PUBLISHER can have many Authors
-- PUBLISHER can have many Books
-
-#
-
-- USER can save many Books
-- USER can assign 'stars/rating' to any Book
-- USER can follow many Authors/Publishers
-
-#
-
-## User Stories
-
-- As a user I would like to see ALL BOOKS
-- As a user I would like to see ALL AUTHORS
-- As a user I would like to see ALL PUBLISHERS
-
-#
-
-- As a user I would like to see A SINGLE BOOK (with ALL EXTRA DETAILS)
-- As a user I would like to see A SINGLE AUTHOR (with ALL EXTRA DETAILS)
-- As a user I would like to see A SINGLE PUBLISHER (with ALL EXTRA DETAILS)
-
-#
-
-- As a user I would like to change the theme from NIGHT TO DAY / DAY TO NIGHT & have the website REMEMBER
-- As a user I would like to create an account
-- As a user I would like to save books to my favorite's
-
-#

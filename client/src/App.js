@@ -24,8 +24,6 @@ import Home from './components/Home/Home';
 import Listing from './components/Listing/Listing';
 import './App.css';
 
-import Navigation from './components/Navigation/Navigation';
-
 export const App = () => {
   return (
     <ActionProvider>
@@ -77,7 +75,7 @@ const Switcher = props => {
   );
 };
 
-const NavigationComponent = ({ children }) => {
+const Navigation = ({ children }) => {
   const dispatch = useContext(DispatchContext);
 
   const [open, setOpen] = useState(false);
