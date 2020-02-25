@@ -18,7 +18,8 @@
     "server": "nodemon --exec babel-node server/index.js",
     "dev": "concurrently --raw --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "dev:server": "cd client && yarn build && cd .. && yarn start",
-    "start": "nodemon --exec babel-node server/index.js",
+    "start_nodemon": "nodemon --exec babel-node server/index.js",
+    "start": "babel-node server/index.js",
     "test:run-server": "npm start",
     "test:execute-test": "mocha --timeout 10000 --require @babel/register 'server/**/*.spec.js'",
     "test": "echo \"No test specified\" && exit 0"
