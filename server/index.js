@@ -15,7 +15,10 @@ app.listen(PORT);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use(express.static('public'));
+app.use(express.static('client/build'));
+app.get('*', (req, res) =>
+  res.sendFile(path.resolve('client/build', 'index.html')),
+);
 app.use('/', routes);
 
 connectDb();
