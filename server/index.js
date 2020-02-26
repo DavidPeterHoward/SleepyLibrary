@@ -34,7 +34,7 @@ if (isProduction) {
   app.use(express.static('public'));
 }
 
-app.use('/', routes);
+app.use('/api', routes);
 
 connectDb();
 
