@@ -25,17 +25,15 @@ app.use(
   }),
 );
 
-app.use('/api', routes);
-
 if (isProduction) {
-  // app.use(express.static('client/build'));
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  app.get('*', (req, res) => {
-    // res.sendFile(path.resolve('client/build', 'index.html')),
-    res.sendFile(path.join(__dirname + '/client/build/index.html'));
-  });
+  app.use(express.static('client/build'));
+  app.use('/api', routes);
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve('client/build', 'index.html')),
+  );
 } else {
   app.use(express.static('public'));
+  app.use('/api', routes);
 }
 
 connectDb();
