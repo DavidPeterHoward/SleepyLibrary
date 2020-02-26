@@ -38,7 +38,7 @@ export const BookSingleItem = data => {
     error,
     fetchMore,
     showLoadMore,
-  ] = useFetch(`/api/books/${data._id}`);
+  ] = useFetch(`/books/${data._id}`);
 
   const HandleDeleteCheck = bool => {
     bool
