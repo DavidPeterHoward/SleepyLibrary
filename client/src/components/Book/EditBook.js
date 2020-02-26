@@ -1,55 +1,52 @@
 import React, { useState } from 'react';
 
-const EditBook = () => {
-  const [bookId, setBookId] = useState(null);
+const EditBook = ({ data }) => {
   const [bookTitle, setBookTitle] = useState(null);
   const [bookISBN, setBookISBN] = useState(null);
-  const [bookAuthor, setBookAuthor] = useState(null);
 
-  function HandlePut(name, isbn, author, bookId) {
-    fetch(`/book/${bookId}`, {
-      method: 'post',
+  function HandlePut(_id, name, isbn) {
+    fetch(`/book/${data._id}`, {
+      method: 'PUT',
       headers: {
         Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(name, isbn, author),
+      body: JSON.stringify(_id, name, isbn),
     }).then(res => res.json());
   }
 
   return (
-    <form
-      noValidate
-      autoComplete="off"
-      encType={'multipart/form-data'}
-      onSubmit={e => {
-        e.preventDefault();
-        HandlePost({
-          name: bookTitle,
-          isbn: bookISBN,
-          author: bookAuthor,
-        });
-      }}
-    >
-      <input
-        type="text"
-        placeholder="Book Title"
-        onChange={e => setBookTitle(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Book ISBN"
-        onChange={e => setBookISBN(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Book Author"
-        onChange={e => setBookAuthor(e.target.value)}
-      />
-      <button type="submit" value="Submit">
-        Save Book
-      </button>
-    </form>
+    <>
+      <div>
+        <form
+          noValidate
+          autoComplete="off"
+          encType={'multipart/form-data'}
+          onSubmit={e => {
+            e.preventDefault();
+            HandlePut({
+              _id: data._id,
+              name: bookTitle,
+              isbn: bookISBN,
+            });
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Book First Name"
+            onChange={e => setBookTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Book Last Name"
+            onChange={e => setBookISBN(e.target.value)}
+          />
+          <button type="submit" value="Submit">
+            Save Edit of Book
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
