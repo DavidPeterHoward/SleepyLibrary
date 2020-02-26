@@ -5,7 +5,7 @@ const EditBook = ({ data }) => {
   const [bookISBN, setBookISBN] = useState(null);
 
   function HandlePut(_id, name, isbn) {
-    fetch(`/book/${data._id}`, {
+    fetch(`/api/book/${data._id}`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json, text/plain, */*',

@@ -20,7 +20,7 @@ const useFetch = (url, LIMIT = 10) => {
   async function fetchUrl() {
     try {
       const response = await fetch(
-        `${theUrl}?limit=${theLimit}&offset=${theOffset}`,
+        `/api/${theUrl}?limit=${theLimit}&offset=${theOffset}`,
       );
       const result = await response.json();
       if (result) {

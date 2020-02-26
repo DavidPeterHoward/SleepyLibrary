@@ -78,7 +78,7 @@ export const Listing = ({ listingType }) => {
     fetchMore,
     showLoadMore,
     isLoading,
-  ] = useFetch(`/${listingType}/`, LIMIT);
+  ] = useFetch(`/api/${listingType}/`, LIMIT);
 
   const [result] = useFetchListAndMerge(data, listingType);
 

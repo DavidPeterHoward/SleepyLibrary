@@ -5,7 +5,7 @@ const CreateAuthor = () => {
   const [lastName, setLastName] = useState(null);
 
   function HandlePost(first_name, last_name) {
-    fetch('/author/', {
+    fetch('/api/author/', {
       method: 'post',
       headers: {
         Accept: 'application/json, text/plain, */*',

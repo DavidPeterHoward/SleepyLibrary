@@ -5,7 +5,7 @@ const StateContext = React.createContext();
 const DispatchContext = React.createContext();
 
 const Delete = (data, payload, listing, type) => {
-  fetch(`/${listing}/${payload}`, {
+  fetch(`/api/${listing}/${payload}`, {
     method: 'DELETE',
     headers: {
       Accept: 'application/json, text/plain, */*',
@@ -16,7 +16,7 @@ const Delete = (data, payload, listing, type) => {
 };
 
 const Edit = (data, payload, listing, type) => {
-  fetch(`/${listing}/${payload}`, {
+  fetch(`/api/${listing}/${payload}`, {
     method: 'PUT',
     headers: {
       Accept: 'application/json, text/plain, */*',

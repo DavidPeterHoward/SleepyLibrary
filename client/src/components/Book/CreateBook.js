@@ -7,13 +7,13 @@ const CreateBook = ({ ShowModal }) => {
   const [bookAuthor_LastName, setBookAuthor_LastName] = useState(null);
 
   function HandlePost(name, isbn, author) {
-    fetch("/books/", {
-      method: "post",
+    fetch('/api/books/', {
+      method: 'post',
       headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(name, isbn, author)
+      body: JSON.stringify(name, isbn, author),
     }).then(res => res.json());
   }
 

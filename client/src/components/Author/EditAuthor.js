@@ -6,7 +6,7 @@ const EditAuthor = ({ data }) => {
   const [lastName, setLastName] = useState(null);
 
   function HandlePut(_id, first_name, last_name) {
-    fetch(`/author/${data._id}`, {
+    fetch(`/api/author/${data._id}`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json, text/plain, */*',

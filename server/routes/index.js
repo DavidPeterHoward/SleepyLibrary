@@ -4,10 +4,10 @@ const router = express();
 import AuthorRouter from './author';
 import BookRouter from './book';
 
-router.use('/books', BookRouter);
-router.use('/book', BookRouter);
+router.use('/api/books', BookRouter);
+router.use('/api/book', BookRouter);
 
-router.use('/authors', AuthorRouter);
-router.use('/author', AuthorRouter);
+router.use('/api/authors', AuthorRouter);
+router.use('/api/author', AuthorRouter);
 
 module.exports = router;
