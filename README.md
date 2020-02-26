@@ -2,19 +2,19 @@
 
 The goal was to create a fullstack application for a library, managing authors/books.
 
-This application was developed to be as modular as possible, while I didn't believe it was large enough to enact Redux, I opted for creating my own useContext/useReducer version instead.
-
-I wanted to do this with no additional libraries for design/components (e.g. Modals, Transitions, Pagination)
+This application was developed to be as modular as possible, while I didn't believe it was large enough to enact Redux, I opted for creating my own useContext/useReducer version instead for CRUD actions and modals. I developed this application with as little additional libraries as possible (e.g. Modals, Transitions, Pagination, Redux, etc)
 
 # How to start:
 
 ```
+localhost:3000 = CLIENT (Proxying Server)
+localhost:4000 = SERVER
+
 MongoDB Compass Community (or equivalent)
 
 .env
 PORT=4000
 MONGODB_URI="mongodb://localhost:27017/library"
-
 
 ROOT:
 > yarn && cd client && yarn && cd ..
@@ -24,7 +24,6 @@ TESTING:
 > cd client
 > yarn unit:test
 > yarn nyc:coverage
-
 ```
 
 #
@@ -43,11 +42,9 @@ DATABASE RELATIONSHIPS
 // - Frontend
 // - Backend
 // - Testing
-// -- Types of tests
+// - Types of tests
 // - Further Tools (Linters, etc)
 // Application Structure
-// Database Schema / UML Design
-// User Stories
 // Future Features
 ```
 
@@ -56,24 +53,22 @@ DATABASE RELATIONSHIPS
 todo:
 
 - Ability to add images to books / author profiles
-- Add in skeleton loading
-- Add Error Boundaries
 - Add multiple authors to a book / add another author button (on book)
 - Add multiple books to an author / add another book button (on author)
 - Check if author/book exists creating (add to existing)
 - Offline Support (service workers)
 - Day/Night Theme Support
 - Authentication
-- Responsive Design
 
 ## Features:
 
 - Restful API (CRUD)
 - Custom Redux: useContext/useReducer
 - Custom Hooks (FetchHook.js/FetchListAndMerge.js)
-- Load More Lazy Pagination
+- Load More Pagination
+- Skeleton loading
 - Transitions
-- Modals
+- Modal
 
 #### Backend:
 
@@ -93,67 +88,68 @@ todo:
 - Mocha (Test Runner/Framework)
 - Chai (Assertion Library)
 - Enzyme (Test Utility for ReactJS)
-- Sinon (test spies, stubs, mocks)
 - Testing-library/react-hooks (testing react hooks)
 - Istanbul's Nyc (code coverage)
-
-#### CI / CD
-
-- GitLab
-- GitHub (Source Control)
 
 ##### Types of testing:
 
 - Unit
 - Smoke
-- Integration
-- Snapshot
-- Stubs
 - Mock
-- UI Regression
-- E2E (todo: add Cyprus)
+- todo: integration, snapshot, UI regression, E2E
 
 #### Further tools
 
-- Yarn (Package Manager)
-- Babel (Transpile / PollyFiller)
+- Yarn
+- Babel
 - Prettier
 - EsLint
 - StyleLint
 
 # Application Structure:
 
-This application has been developed with **group-by-files** approach as opposed to group-by-feature - this is due to the reusable nature of many components (such as: Listing.js / List.js / -> which dynamically fetches based upon the passed parameter type)
+This application has been developed with **group-by-feature** approach as opposed to group-by-files - this is due to the reusable nature of many components (such as: Listing.js / List.js / -> which dynamically fetches based upon the passed parameter type) & Book/Author folders.
 
-    SleepyLib -- Because it's restful ;)
-    ├── client                                        ### Client Application (ReactJS) ###
+    SleepyLibrary
+    ├── client                                       ### Client Application (ReactJS) ###
     │   └── src
     │       ├── index.js
     │       ├── app.js
-    │       ├── action-context.js                     # Custom-Redux (useContext/useReducer) - w/ Modal
+    │       ├── action-context.js                    # Custom-Redux (useContext/useReducer) - w/ Modal
     │       │
     │       ├── components
-    │       │   ├── actions                           ### ACTIONS ###
-    │       │   |   ├── CreateBook.js                 # Create new book
-    │       │   |   ├── CreateAuthor.js               # Create new author
-    │       │   |   └── AppView.test.js
-    │       │   ├── __tests__
-    │       │   │   └── AppView.test.js
-    │       │   ├── Listing
+    │       │   ├── _common                          ### Reusable Components ###
+    │       │   |   ├── Button.js
+    │       │   |   ├── Input.js
+    │       │   ├── Author                           ### Author Components ###
+    │       │   |   ├── AuthorListing.js                # Single Author
+    │       │   |   ├── CreateAuthor.js
+    │       │   |   ├── EditAuthor.js
+    │       │   ├── Book                             ### Book Components ###
+    │       │   |   ├── BookListing.js                  # Single Book
+    │       │   |   ├── CreateBook.js
+    │       │   |   └── EditBook.js
+    │       │   ├── Home                              ### Home Page ###
+    │       │   │   └── Home.js
+    │       │   ├── Listing                           ### Listing Components ###
     │       │   |   ├── Listing.js
-    │       │   |   ├── Listing.js
-    │       │   │   └── List.js
-    │       │   ├── Listing
-    │       │   |   ├── Listing.js
-    │       │   |   ├── Listing.js
-    │       │   │   └── List.js
-    |       └── utils                                   ### Modular Components ###
-    │           ├── Modal.js                            # Modal Component
-    │           ├── Modal.js                            # Modular Component
-    │           ├── Transition.js                       # Transition Component
+    │       │   |   ├── Listing.spec.js
+    │       │   │   └── Listing.styled.js
+    │       │   ├── Shared
+    │       │   |   └── ListingCard.styled.js
+    |       └── utils                                  ### Modular Components ###
+    │           ├── Modal                                   # Modal Component
+    │           │   └── Modal.js
+    │           │   └── Modal.spec.js
+    │           │   └── Modal.styled.js
+    │           ├── Skeleton                            #  Skeleton Loading
+    │           │   └── Skeleton.js
+    │           ├── FetchListAndMerge.js                # Used for loadmore -> merges (todo: add to custom redux)
+    │           ├── Transition.js                       # Transition Animation Component
+    │           ├── useWhyDidYouUpdate.js               # Custom hook for performance testing
     │           └── FetchHook.js                        # Custom Fetcher Hook
     │
-    ├── server                                        ### Server Application (NodeJS(Express) && MongoDB(Mongoose)) ###
+    ├── server                                        ### Server Application (NodeJS/MongoDb) ###
     │   ├── models
     │   │   ├── author.js
     │   │   ├── book.js
@@ -163,41 +159,9 @@ This application has been developed with **group-by-files** approach as opposed 
     |       |   └── index.js                            # Author Routes
     │       ├── book
     |       |   └── index.js                            # Book Routes
-    |       |
     │       ├── index.js                                ## Route Controller ##
     ├── .babelrc
     ├── .eslintrc.json
     ├── .prettierrc
     ├── .stylelintrc
     └── README.md
-
-<!--
-
-    │           ├── __tests__
-    │           │   └── AppView.test.js
- -->
-
-Database Schema / UML Diagram:
-
-user:
-
-- Name
-- Favourites
-
-author:
-
-- First_name
-- Last_name
-- authored_books
-
-book:
-
-- title
-- ISBN (International Standard Book Number)
-- author
-
-publisher:
-
-- name
-- authors
-- books
