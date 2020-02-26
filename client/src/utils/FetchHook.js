@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const useFetch = (url, LIMIT = 10) => {
   const [data, setData] = useState([]);
@@ -20,16 +20,13 @@ const useFetch = (url, LIMIT = 10) => {
   async function fetchUrl() {
     try {
       const response = await fetch(
-        `${theUrl}?limit=${theLimit}&offset=${theOffset}`
+        `${theUrl}?limit=${theLimit}&offset=${theOffset}`,
       );
       const result = await response.json();
       if (result) {
         if (!result.length) {
           setShowLoadMore(false);
         } else if (result.length < LIMIT) {
-          console.log(result.length);
-          console.log(LIMIT);
-
           setShowLoadMore(false);
         }
         result && setData(result);

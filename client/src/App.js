@@ -1,28 +1,17 @@
 // import { hot } from "react-hot-loader/root";
-import React, {
-  useState,
-  useContext,
-  createContext,
-  useReducer,
-  useRef,
-  useEffect,
-} from 'react';
-import styled, { css } from 'styled-components/macro';
+import React, { useContext, useState } from 'react';
 import {
   BrowserRouter as Router,
-  Route,
   Link,
+  Route,
   Switch,
 } from 'react-router-dom';
-import Button from './components/_common/button/Button';
-import {
-  ActionProvider,
-  StateContext,
-  DispatchContext,
-} from './action-context';
+import styled from 'styled-components/macro';
+import { ActionProvider, DispatchContext } from './action-context';
+import './App.css';
 import Home from './components/Home/Home';
 import Listing from './components/Listing/Listing';
-import './App.css';
+import Button from './components/_common/button/Button';
 
 export const App = () => {
   return (
@@ -92,7 +81,11 @@ const Navigation = ({ children }) => {
           <div />
         </StyledBurger>
         <StyledMenu open={open}>
-          <Link id="HomeLink" to={'/'}>
+          <Link
+            id="HomeLink"
+            to={'/'}
+            onClick={() => HandleMenuClick()}
+          >
             <span role="img" aria-label="home">
               🏠
             </span>

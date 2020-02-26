@@ -1,16 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 import {
   ListingCard,
   CardContainer,
   CardContainer_Column,
-  Card_Single
-} from "../../shared/ListingCard.styled";
+  Card_Single,
+} from '../../shared/ListingCard.styled';
 import {
   ActionProvider,
   StateContext,
-  DispatchContext
-} from "../../action-context";
-import { useFetch } from "../../utils/FetchHook";
+  DispatchContext,
+} from '../../action-context';
+import { useFetch } from '../../utils/FetchHook';
 
 export const AuthorListing = (singleAuthor, dispatch) => {
   return (
@@ -19,9 +19,9 @@ export const AuthorListing = (singleAuthor, dispatch) => {
       onClick={() =>
         dispatch({
           data: singleAuthor,
-          listing: "AUTHOR",
-          type: "ShowModal",
-          payload: `${singleAuthor?._id}`
+          listing: 'AUTHOR',
+          type: 'ShowModal',
+          payload: `${singleAuthor?._id}`,
         })
       }
     >
@@ -45,35 +45,32 @@ export const AuthorSingleItem = data => {
   const [showDeleteCheck, setShowDeleteCheck] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const dispatch = useContext(DispatchContext);
-  const [FullData, isLoaded, error, fetchMore, showLoadMore] = useFetch(
-    `/authors/${data._id}`
-  );
+  const [
+    FullData,
+    isLoaded,
+    error,
+    fetchMore,
+    showLoadMore,
+  ] = useFetch(`/authors/${data._id}`);
 
   const HandleDeleteCheck = bool => {
     bool
       ? dispatch({
           data: data,
-          listing: "AUTHOR",
-          type: "Edit",
-          payload: `${data?._id}`
+          listing: 'AUTHOR',
+          type: 'Edit',
+          payload: `${data?._id}`,
         })
       : setShowDeleteCheck(!showDeleteCheck);
   };
-
-  /*             dispatch({
-              data: data,
-              listing: "AUTHOR",
-              type: "Edit",
-              payload: `${data?._id}`
-            }) */
 
   const HandleEdit = bool => {
     bool
       ? dispatch({
           data: data,
-          listing: "AUTHOR",
-          type: "Edit",
-          payload: `${data?._id}`
+          listing: 'AUTHOR',
+          type: 'Edit',
+          payload: `${data?._id}`,
         })
       : setShowEdit(!showEdit);
   };
@@ -83,16 +80,15 @@ export const AuthorSingleItem = data => {
       <div>
         <button onClick={() => setShowDeleteCheck(!showDeleteCheck)}>
           DELETE
-        </button>{" "}
+        </button>{' '}
         | <button onClick={() => setShowEdit(!showEdit)}>EDIT</button>
       </div>
-      {showEdit && <EditAuthor HandleEdit={HandleEdit} />}
+      {showEdit && <EditAuthor data={data} />}
       {showDeleteCheck ? (
         <CheckBeforeDelete HandleDeleteCheck={HandleDeleteCheck} />
       ) : isLoaded && FullData._id ? (
         <>
-          <p>Author: {FullData?.first_name}</p>
-          <p>First Name: {FullData?.name}</p>
+          <p>First Name: {FullData?.first_name}</p>
           <p>Last Name: {FullData?.last_name}</p>
           <br />
           <b>BOOKS:</b>
@@ -115,19 +111,19 @@ export const AuthorSingleItem = data => {
   );
 };
 
-const EditAuthor = props => {
+const EditAuthor = ({ data }) => {
   const [authorId, setAuthorId] = useState(null);
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
 
   function HandlePut(_id, first_name, last_name) {
-    fetch("/author/" + `${_id}`, {
-      method: "PUT",
+    fetch(`/author/${data._id}`, {
+      method: 'PUT',
       headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(_id, first_name, last_name)
+      body: JSON.stringify(_id, first_name, last_name),
     }).then(res => res.json());
   }
 
@@ -137,13 +133,13 @@ const EditAuthor = props => {
         <form
           noValidate
           autoComplete="off"
-          encType={"multipart/form-data"}
+          encType={'multipart/form-data'}
           onSubmit={e => {
             e.preventDefault();
             HandlePut({
-              _id: props._id,
+              _id: data._id,
               first_name: firstName,
-              last_name: lastName
+              last_name: lastName,
             });
           }}
         >
@@ -183,11 +179,3 @@ const CheckBeforeDelete = props => {
     </>
   );
 };
-
-/* const SingleListing = (data, dispatch) => {
-  return(
-    <ListingCard>
-
-    </ListingCard>
-  )
-} */

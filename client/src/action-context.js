@@ -1,44 +1,42 @@
-import React, { useState, useEffect } from "react";
-import Modal, { useHandleShowModal } from "./utils/Modal/Modal";
+import React, { useState, useEffect } from 'react';
+import Modal, { useHandleShowModal } from './utils/Modal/Modal';
 
 const StateContext = React.createContext();
 const DispatchContext = React.createContext();
 
 const Delete = (data, payload, listing, type) => {
-  console.log("attempting to delete" + `${payload}`);
   fetch(`/${listing}/${payload}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json"
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   }).then(res => res.json());
 };
 
 const Edit = (data, payload, listing, type) => {
-  console.log("attempting to delete" + `${payload}`);
   fetch(`/${listing}/${payload}`, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": "application/json"
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   }).then(res => res.json());
 };
 
 const ActionReducer = (state, action) => {
   const { data, listing, type, payload } = action;
   switch (type) {
-    case "ShowModal":
+    case 'ShowModal':
       return { data, payload, listing, type };
-    case "HideModal":
+    case 'HideModal':
       return { data, payload, listing, type };
-    case "Delete":
+    case 'Delete':
       Delete(data, payload, listing, type);
       return { data, payload, listing, type };
-    case "Edit":
+    case 'Edit':
       Edit(data, payload, listing, type);
       return { data, payload, listing, type };
     default:
@@ -50,7 +48,7 @@ function ActionProvider({ children }) {
   const [showModal, setShowModal] = useState(false);
   const [type, setType] = useState(null);
   const [state, dispatch] = React.useReducer(ActionReducer, {
-    action: "1"
+    action: '1',
   });
 
   const ShowModal = (e, ModalType) => {
@@ -65,7 +63,7 @@ function ActionProvider({ children }) {
   };
 
   useEffect(() => {
-    if (state?.type === "ShowModal") {
+    if (state?.type === 'ShowModal') {
       setShowModal(true);
     } else {
     }
