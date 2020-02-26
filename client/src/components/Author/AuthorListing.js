@@ -52,7 +52,7 @@ export const AuthorSingleItem = data => {
     error,
     fetchMore,
     showLoadMore,
-  ] = useFetch(`/authors/${data._id}`);
+  ] = useFetch(`authors/${data._id}`);
 
   const HandleDeleteCheck = bool => {
     bool
