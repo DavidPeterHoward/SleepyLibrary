@@ -13,7 +13,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "ignore-styles": "^5.0.1",
     "jsdom": "^16.2.0",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "mocha": "^7.0.1",
     "nyc": "^15.0.0",
     "react": "^16.12.0",
